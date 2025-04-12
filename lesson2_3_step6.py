@@ -2,8 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import time
 import math
 
@@ -14,15 +12,15 @@ path_to_chromedriver = "C:/chromedriver/chromedriver.exe"
 service = Service(executable_path=path_to_chromedriver)
 
 try: 
-    link = "http://suninjuly.github.io/explicit_wait2.html"
+    link = "http://suninjuly.github.io/redirect_accept.html"
     browser = webdriver.Chrome(service=service)
     browser.get(link)
 
-    button = WebDriverWait(browser, 12).until(
-        EC.text_to_be_present_in_element((By.ID, "price"), "$100")
-    )
-    button = browser.find_element(By.ID, "book")
+    button = browser.find_element(By.CSS_SELECTOR, "button.btn")
     button.click()
+
+    new_window = browser.window_handles[1]
+    browser.switch_to.window(new_window)
 
     x_element = browser.find_element(By.CSS_SELECTOR, "#input_value")
     y = calc(x_element.text)
@@ -30,7 +28,7 @@ try:
     answer = browser.find_element(By.CSS_SELECTOR, "#answer")
     answer.send_keys(y)
 
-    submit = browser.find_element(By.CSS_SELECTOR, "#solve")
+    submit = browser.find_element(By.CSS_SELECTOR, "button.btn")
     submit.click()
 
 finally:
