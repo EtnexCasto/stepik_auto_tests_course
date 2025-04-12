@@ -1,2 +1,1 @@
-# stepik_auto_tests_course
-Homework for stepik's course
+Today we gonna commit this file!
